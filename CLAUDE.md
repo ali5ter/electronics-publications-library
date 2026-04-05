@@ -1,4 +1,4 @@
-# publication-library — Claude Code Context
+# electronics-publications-library — Claude Code Context
 
 ## Library orientation
 
@@ -7,43 +7,52 @@ structure, how to find and read index files, how to search, and how to write fin
 
 ## Purpose
 
-A personal digital library toolkit. Downloads and indexes magazine/book PDFs from online archives into
-searchable Markdown with page images, making the corpus navigable by grep or AI assistant.
-Originally built for [World Radio History](https://www.worldradiohistory.com) but works with any PDF collection.
+A personal electronics publications library. Indexed from PDF archives at
+[World Radio History](https://www.worldradiohistory.com).
 
-GitHub repository: <https://github.com/ali5ter/publication-library>
+Template repository: <https://github.com/ali5ter/publication-library>
+Local directory: `/Users/alister/Documents/Projects/electronics-publications-library/`
+
+## Collections
+
+| Collection | Period | Publications | Pages | Status |
+| --- | --- | --- | --- | --- |
+| [Hobby Electronics](collections/hobby-electronics/COLLECTION.md) | 1978–1984 | 67 | ~5,000 | Indexed |
+| [ETI — Electronics Today International](collections/eti/COLLECTION.md) | 1972–1999 | 367 | 27,328 | Indexed |
+| [Bernards/Babani BP Books](collections/bernards-babani/COLLECTION.md) | Various | 111 | 16,153 | Indexed |
 
 ## Project layout
 
 ```text
-publication-library/
+electronics-publications-library/
 ├── collections/                  ← local PDF archives and indexed output (gitignored)
-│   └── COLLECTION-NAME/
-│       ├── COLLECTION.md         ← collection metadata (local instance, not tracked in template)
-│       ├── pdfs/                 ← source PDFs (gitignored; may be a symlink to cloud storage)
-│       └── indexed/              ← converted output (gitignored)
+│   ├── hobby-electronics/
+│   │   ├── COLLECTION.md         ← tracked collection metadata
+│   │   ├── pdfs/                 ← source PDFs (gitignored; to be symlinked to cloud storage)
+│   │   └── indexed/              ← 67 issues, fully indexed (~5,000 pages; gitignored)
+│   ├── eti/
+│   │   ├── COLLECTION.md
+│   │   ├── pdfs/                 ← 367 PDFs (gitignored; to be symlinked to cloud storage)
+│   │   └── indexed/              ← 327 dirs, 27,328 pages (gitignored)
+│   └── bernards-babani/
+│       ├── COLLECTION.md
+│       ├── pdfs/                 ← 111 BP-numbered books (gitignored; to be symlinked)
+│       └── indexed/              ← 111 dirs, 16,153 pages (gitignored)
 ├── findings/                     ← personal research outputs (gitignored)
 ├── LIBRARIAN.md                  ← AI orientation guide (read this first)
-├── CATALOGUE.md                  ← master cross-collection index (local instance, generated)
-├── COLLECTION.md.example         ← template for writing COLLECTION.md files
+├── CATALOGUE.md                  ← master cross-collection index (tracked)
 ├── download.py                   ← scrape and download PDFs from an archive page
 ├── convert.py                    ← convert PDFs → markdown + page PNGs
 ├── search.py                     ← search across indexed collections with formatted output
 ├── init-findings.sh              ← scaffold the findings/ directory
-├── README.md
-├── CLAUDE.md                     ← this file
-├── AGENTS.md                     ← OpenAI Codex CLI context
-├── GEMINI.md                     ← Google Gemini CLI context
-├── .github/copilot-instructions.md ← GitHub Copilot context
-├── .gitignore
-└── .markdownlint.json
+└── README.md
 ```
 
 ## Quick reference
 
 | Task | Location |
 | --- | --- |
-| All collections | `CATALOGUE.md` (run `python3 convert.py --global-index collections/` to regenerate) |
+| All collections | `CATALOGUE.md` |
 | Collection details | `collections/NAME/COLLECTION.md` |
 | Browse a collection | `collections/NAME/indexed/index.md` |
 | Scan an issue | `collections/NAME/indexed/SLUG/index.md` |
@@ -51,44 +60,30 @@ publication-library/
 | Search | `python3 search.py "term"` |
 | Write findings | `findings/` (gitignored) |
 
-## Key design decisions
-
-- **OCR text layer only** — PDFs from worldradiohistory.com are scanned with an OCR overlay; text is extracted from
-  that layer, not re-OCR'd. Diagrams are baked into the scan and cannot be separated.
-- **Full-page PNGs at 200 DPI** — pages rendered as images (~1600×2250 px), sufficient to read component values in
-  circuit diagrams.
-- **Idempotent conversion** — already-converted publications are skipped unless `--force` is passed.
-- **Recursive glob default** — `--pattern **/*.pdf` handles archive collections with decade subdirectories.
-- **Slug detection** — flexible: year-month, volume, issue-number, bare-number, filename-stem fallback.
-- **`collections/` gitignored** — all copyrighted content (PDFs and derived output) stays local only.
-- **COLLECTION.md local-only** — collection metadata belongs to the instance, not the template.
-- **CATALOGUE.md generated** — maintained by `convert.py --global-index`; gitignored in the template.
-- **Local-first corpus** — findings/ is gitignored; symlink to Dropbox/iCloud/Google Drive for cross-device access.
-- **GitHub template** — fork or use as template to build your own library using the same structure.
-
 ## Common commands
 
 ```bash
-# Scaffold findings/ directory
-./init-findings.sh
+# Search across all indexed collections
+python3 search.py "topic"
 
-# Download from an archive page
-python3 download.py "https://www.worldradiohistory.com/PAGE.htm" --output-dir collections/NAME/pdfs
-
-# Probe a collection before converting
-python3 convert.py --analyze --input-dir collections/NAME/pdfs
-
-# Convert and auto-generate COLLECTION.md
-python3 convert.py --input-dir collections/NAME/pdfs --output-dir collections/NAME/indexed \
-  --write-collection-md
+# Search within one collection
+python3 search.py "topic" --collection hobby-electronics
 
 # Regenerate the cross-collection catalogue
 python3 convert.py --global-index collections/
 
-# Search across all indexed collections
-python3 search.py "topic"
+# Download a new collection
+python3 download.py "https://www.worldradiohistory.com/PAGE.htm" \
+  --output-dir collections/NAME/pdfs
+
+# Convert a collection
+python3 convert.py --input-dir collections/NAME/pdfs \
+  --output-dir collections/NAME/indexed \
+  --write-collection-md
 ```
 
-## Contributing
+## Notes
 
-Report bugs and request enhancements via [GitHub Issues](https://github.com/ali5ter/publication-library/issues).
+- Private remote to be added once cloud storage symlinks are in place
+- PDFs and indexed output are gitignored; to be symlinked to cloud storage
+- `findings/` is gitignored; to be symlinked to cloud storage
