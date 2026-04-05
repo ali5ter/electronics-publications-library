@@ -40,6 +40,8 @@ Python 3.10+. No other dependencies.
 | --- | --- |
 | `download.py` | Scrape all PDF links from an archive page and download them |
 | `convert.py` | Convert a folder of PDFs to searchable Markdown with page images |
+| `search.py` | Search across all indexed collections with grouped, formatted output |
+| `init-findings.sh` | Scaffold the `findings/` directory, with optional cloud storage symlink |
 
 ---
 

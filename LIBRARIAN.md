@@ -132,3 +132,5 @@ Write findings freely — they will never be committed to the repository.
 | Write a research finding | `findings/topics/YOUR-TOPIC.md` |
 | Download a new collection | `python3 download.py URL --output-dir collections/NAME/pdfs` |
 | Convert a collection | `python3 convert.py --input-dir collections/NAME/pdfs --output-dir collections/NAME/indexed` |
+| Search across all collections | `python3 search.py "term"` |
+| Search within one collection | `python3 search.py "term" --collection NAME` |
