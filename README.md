@@ -196,6 +196,25 @@ Click **Use this template** on GitHub to create your own library repository. The
 and indexed output are excluded by `.gitignore`, but collection metadata (`COLLECTION.md` files) and
 the project structure are tracked — so the shape of your library is preserved in version control.
 
+### Staying up to date with the template
+
+To pull improvements from this template into your instance, add it as an `upstream` remote once:
+
+```bash
+git remote add upstream https://github.com/ali5ter/publication-library.git
+```
+
+Then merge whenever you want to pick up changes:
+
+```bash
+git fetch upstream
+git merge upstream/main --no-edit
+git push origin main
+```
+
+Git handles merging template changes with your instance-specific commits automatically. Conflicts
+are unlikely since the template never modifies `COLLECTION.md` files or `CATALOGUE.md`.
+
 ---
 
 ## Contributing
