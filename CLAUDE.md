@@ -20,6 +20,7 @@ Local directory: `/Users/alister/Documents/Projects/electronics-publications-lib
 | [Hobby Electronics](collections/hobby-electronics/COLLECTION.md) | 1978–1984 | 67 | ~5,000 | Indexed |
 | [ETI — Electronics Today International](collections/eti/COLLECTION.md) | 1972–1999 | 367 | 27,328 | Indexed |
 | [Bernards/Babani BP Books](collections/bernards-babani/COLLECTION.md) | Various | 111 | 16,153 | Indexed |
+| [Moritz Klein](collections/moritz-klein/COLLECTION.md) | — | 4 | — | Indexed |
 
 ## Project layout
 
@@ -82,7 +83,45 @@ python3 convert.py --input-dir collections/NAME/pdfs \
   --write-collection-md
 ```
 
-## Notes
+## Instance guidance (for forks and template instances)
+
+### Which files are safe to modify in an instance
+
+| File | Safe to edit in instance? | Notes |
+| --- | --- | --- |
+| `CATALOGUE.md` | Yes — freely | Gitignored in template; instance-owned and generated |
+| `collections/*/COLLECTION.md` | Yes — freely | Gitignored in template; instance-owned |
+| `findings/` | Yes — freely | Gitignored in template; personal research |
+| `CLAUDE.md` | Carefully — see below | Tracked in template; edits risk merge conflicts on sync |
+| All other tracked files | No | Modify via upstream PR instead |
+
+### Adding instance-specific Claude context
+
+`CLAUDE.md` is tracked in the template, so direct edits risk merge conflicts when syncing upstream
+changes. To add instance-specific context safely, append an `## Instance context` section at the
+bottom of your local `CLAUDE.md`. Template content lives above this divider; your additions live
+below. When merging upstream changes, conflicts will be isolated to that one section and easy to
+resolve.
+
+```markdown
+## Instance context
+
+<!-- Instance-specific content below this line — not part of the upstream template -->
+
+### Collections
+
+...your local collection notes here...
+```
+
+## Contributing
+
+Report bugs and request enhancements via [GitHub Issues](https://github.com/ali5ter/publication-library/issues).
+
+## Instance context
+
+<!-- Instance-specific content below this line — not part of the upstream template -->
+
+### Setup notes
 
 - Private remote to be added once cloud storage symlinks are in place
 - PDFs and indexed output are gitignored; to be symlinked to cloud storage
