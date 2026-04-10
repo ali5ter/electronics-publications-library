@@ -10,6 +10,7 @@ Covers DIY eurorack designs with full build documentation and circuit explanatio
 | **Source** | [Patreon — Moritz Klein](https://www.patreon.com/cw/moritzklein) |
 | **Period** | Ongoing |
 | **Publications** | 4 manuals |
+| **Pages** | 207 |
 | **Local PDFs** | `collections/moritz-klein/pdfs/` (symlink to cloud storage) |
 | **Indexed** | `collections/moritz-klein/indexed/` |
 
