@@ -35,10 +35,14 @@ electronics-publications-library/
 │   │   ├── COLLECTION.md
 │   │   ├── pdfs/                 ← 367 PDFs (gitignored; to be symlinked to cloud storage)
 │   │   └── indexed/              ← 327 dirs, 27,328 pages (gitignored)
-│   └── bernards-babani/
+│   ├── bernards-babani/
+│   │   ├── COLLECTION.md
+│   │   ├── pdfs/                 ← 111 BP-numbered books (gitignored; to be symlinked)
+│   │   └── indexed/              ← 111 dirs, 16,153 pages (gitignored)
+│   └── moritz-klein/
 │       ├── COLLECTION.md
-│       ├── pdfs/                 ← 111 BP-numbered books (gitignored; to be symlinked)
-│       └── indexed/              ← 111 dirs, 16,153 pages (gitignored)
+│       ├── pdfs/                 ← 4 PDFs (gitignored; to be symlinked)
+│       └── indexed/              ← 4 dirs, 207 pages (gitignored)
 ├── findings/                     ← personal research outputs (gitignored)
 ├── LIBRARIAN.md                  ← AI orientation guide (read this first)
 ├── CATALOGUE.md                  ← master cross-collection index (tracked)
