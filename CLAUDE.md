@@ -17,10 +17,10 @@ Local directory: `/Users/alister/Documents/Projects/electronics-publications-lib
 
 | Collection | Period | Publications | Pages | Status |
 | --- | --- | --- | --- | --- |
-| [Hobby Electronics](collections/hobby-electronics/COLLECTION.md) | 1978–1984 | 67 | ~5,000 | Indexed |
-| [ETI — Electronics Today International](collections/eti/COLLECTION.md) | 1972–1999 | 367 | 27,328 | Indexed |
-| [Bernards/Babani BP Books](collections/bernards-babani/COLLECTION.md) | Various | 111 | 16,153 | Indexed |
-| [Moritz Klein](collections/moritz-klein/COLLECTION.md) | — | 4 | — | Indexed |
+| [Hobby Electronics](collections/hobby-electronics/COLLECTION.md) | November 1978 – September 1984 | 67 | ~5,000 | Indexed |
+| [ETI — Electronics Today International](collections/eti/COLLECTION.md) | 1972–1999 | 326 | 27,328 | Indexed |
+| [Bernards/Babani BP Books](collections/bernards-babani/COLLECTION.md) | Various (1960s–1990s) | 111 | 16,153 | Indexed |
+| [Moritz Klein](collections/moritz-klein/COLLECTION.md) | Ongoing | 4 | 207 | Indexed |
 
 ## Project layout
 
@@ -126,3 +126,12 @@ Report bugs and request enhancements via [GitHub Issues](https://github.com/ali5
 - Private remote to be added once cloud storage symlinks are in place
 - PDFs and indexed output are gitignored; to be symlinked to cloud storage
 - `findings/` is gitignored; to be symlinked to cloud storage
+
+### Release history (this instance)
+
+| Version | Notes |
+| --- | --- |
+| v1.4.6 | Complete CATALOGUE.md with full page counts; absorbed upstream v1.4.3–v1.4.5 |
+| v1.4.2 | Document upstream sync workflow |
+| v1.4.1 | Slug collision bugfix |
+| v1.4.0 | Cloud storage symlink guidance |
