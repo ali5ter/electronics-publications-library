@@ -166,6 +166,20 @@ Report bugs and request enhancements via [GitHub Issues](https://github.com/ali5
 - When adding a new collection: create cloud storage directories first, run `init-symlinks.sh`,
   *then* run `download.py`
 
+### Versioning collision (open decision)
+
+The instance has used `v1.4.x` / `v1.5.0` tags in the same git namespace as upstream, which now
+publishes `v1.5.x` and `v1.6.x` tags. Merging upstream pulls those tags into the instance repo,
+making `v1.5.0` ambiguous (instance addition of E&MM collection vs upstream release).
+
+Options under consideration:
+
+- Re-namespace instance tags with an `inst-` prefix (e.g. `inst-v1.0`, `inst-v1.1`)
+- Drop instance tagging entirely; track milestones only in this release history table
+- Start a distinct version line (e.g. `v2.x`) guaranteed not to collide with current upstream range
+
+Pending decision before the next instance tag is applied.
+
 ### Release history (this instance)
 
 | Version | Notes |
