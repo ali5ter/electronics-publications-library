@@ -23,6 +23,8 @@ publication-library/
 │       ├── pdfs/                 ← source PDFs (gitignored; may be a symlink to cloud storage)
 │       └── indexed/              ← converted output (gitignored)
 ├── findings/                     ← personal research outputs (gitignored)
+├── lib/
+│   └── pfb/                      ← pretty-feedback terminal output library (submodule)
 ├── LIBRARIAN.md                  ← AI orientation guide (read this first)
 ├── CATALOGUE.md                  ← master cross-collection index (local instance, generated)
 ├── COLLECTION.md.example         ← template for writing COLLECTION.md files
@@ -30,6 +32,8 @@ publication-library/
 ├── convert.py                    ← convert PDFs → markdown + page PNGs
 ├── search.py                     ← search across indexed collections with formatted output
 ├── init-findings.sh              ← scaffold the findings/ directory
+├── init-symlinks.sh              ← recreate cloud-storage symlinks (configure via .env)
+├── .env.template                 ← configuration template (copy to .env and set LIBRARY_BASE)
 ├── README.md
 ├── CLAUDE.md                     ← this file
 ├── AGENTS.md                     ← OpenAI Codex CLI context
@@ -72,6 +76,11 @@ publication-library/
 # Scaffold findings/ directory
 ./init-findings.sh
 
+# Set up cloud-storage symlinks (first time or new machine)
+cp .env.template .env   # then edit .env and set LIBRARY_BASE
+# Edit the LINKS array in init-symlinks.sh for your collection layout
+./init-symlinks.sh
+
 # Download from an archive page
 python3 download.py "https://www.worldradiohistory.com/PAGE.htm" --output-dir collections/NAME/pdfs
 
@@ -108,6 +117,10 @@ changes. To add instance-specific context safely, append an `## Instance context
 bottom of your local `CLAUDE.md`. Template content lives above this divider; your additions live
 below. When merging upstream changes, conflicts will be isolated to that one section and easy to
 resolve.
+
+> **Warning:** Do not commit personal paths (home directories, usernames, cloud storage roots) into
+> `CLAUDE.md` or any other tracked file. Keep personal paths in `.env` (gitignored) and reference
+> them via environment variables such as `LIBRARY_BASE`.
 
 ```markdown
 ## Instance context
