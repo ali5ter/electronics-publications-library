@@ -42,6 +42,7 @@ Python 3.10+. No other dependencies.
 | `convert.py` | Convert a folder of PDFs to searchable Markdown with page images |
 | `search.py` | Search across all indexed collections with grouped, formatted output |
 | `init-findings.sh` | Scaffold the `findings/` directory, with optional cloud storage symlink |
+| `init-symlinks.sh` | Recreate cloud-storage symlinks for PDFs, indexed output, and findings |
 
 ---
 
@@ -152,29 +153,36 @@ folders for the derived library assets (indexed output and findings). For exampl
 
 The `library-` prefix distinguishes library infrastructure from per-collection PDF archives at a glance.
 
-### Symlink each collection
+### Set up symlinks with init-symlinks.sh
+
+`init-symlinks.sh` automates symlink creation. Configure it once, then run it after every clone or
+on each new machine.
+
+**1. Set your library base path:**
 
 ```bash
-# PDF folder for a collection
-ln -s ~/Dropbox/my-library/collection-a collections/collection-a/pdfs
-
-# Indexed output for a collection
-mkdir -p ~/Dropbox/my-library/library-indexed/collection-a
-ln -s ~/Dropbox/my-library/library-indexed/collection-a collections/collection-a/indexed
+cp .env.template .env
+# Edit .env and set LIBRARY_BASE to your cloud storage root, e.g.:
+# LIBRARY_BASE="${HOME}/Dropbox/my-library"
 ```
 
-### Store findings in the cloud
+**2. Edit the `LINKS` array in `init-symlinks.sh`** to list your collections:
 
 ```bash
-# Dropbox
-ln -s ~/Dropbox/my-library/library-findings findings
-
-# iCloud Drive
-ln -s ~/Library/Mobile\ Documents/com~apple~CloudDocs/my-library/library-findings findings
-
-# Google Drive
-ln -s "~/Google Drive/My Drive/my-library/library-findings" findings
+declare -a LINKS=(
+    "findings:${LIBRARY_BASE}/library-findings"
+    "collections/collection-a/pdfs:${LIBRARY_BASE}/collection-a"
+    "collections/collection-a/indexed:${LIBRARY_BASE}/library-indexed/collection-a"
+)
 ```
+
+**3. Run it:**
+
+```bash
+./init-symlinks.sh
+```
+
+The script is idempotent — safe to re-run; existing symlinks are skipped.
 
 ---
 
