@@ -42,6 +42,8 @@ Python 3.10+. No other dependencies.
 | `convert.py` | Convert a folder of PDFs to searchable Markdown with page images |
 | `search.py` | Search across all indexed collections with grouped, formatted output |
 | `init-findings.sh` | Scaffold the `findings/` directory, with optional cloud storage symlink |
+| `init-symlinks.sh` | Recreate cloud-storage symlinks (auto-derived from `collections/`) |
+| `bootstrap.sh` | Full reconstruction pipeline: symlinks → download → convert → catalogue |
 
 ---
 
@@ -135,7 +137,7 @@ making everything available across multiple machines without committing copyrigh
 Both `collections/*/pdfs`, `collections/*/indexed`, and `findings/` are gitignored, so symlinks
 to cloud folders work seamlessly with version control.
 
-### Recommended folder layout
+### Recommended cloud folder layout
 
 A clean convention is to store each collection's PDFs in a named folder, and use `library-` prefixed
 folders for the derived library assets (indexed output and findings). For example, using Dropbox:
@@ -152,28 +154,41 @@ folders for the derived library assets (indexed output and findings). For exampl
 
 The `library-` prefix distinguishes library infrastructure from per-collection PDF archives at a glance.
 
-### Symlink each collection
+### One-command reconstruction with bootstrap.sh
+
+After cloning on a new machine, `bootstrap.sh` rebuilds the entire library in one step:
 
 ```bash
-# PDF folder for a collection
-ln -s ~/Dropbox/my-library/collection-a collections/collection-a/pdfs
+cp .env.template .env
+# Edit .env — set LIBRARY_BASE to your cloud storage root, e.g.:
+# LIBRARY_BASE="${HOME}/Dropbox/my-library"
 
-# Indexed output for a collection
-mkdir -p ~/Dropbox/my-library/library-indexed/collection-a
-ln -s ~/Dropbox/my-library/library-indexed/collection-a collections/collection-a/indexed
+./bootstrap.sh
 ```
 
-### Store findings in the cloud
+This creates cloud directories, restores symlinks, downloads any missing PDFs (using the Source URL
+from each `COLLECTION.md`), converts them to searchable Markdown, and regenerates `CATALOGUE.md`.
+The script is idempotent — already-downloaded PDFs and already-converted output are skipped.
+
+### Symlinks only
+
+`init-symlinks.sh` restores symlinks without downloading or converting. Symlink targets are
+auto-derived from `collections/` using the naming convention above. To override, define a `LINKS`
+array in `.env`:
 
 ```bash
-# Dropbox
-ln -s ~/Dropbox/my-library/library-findings findings
+# .env
+LINKS=(
+    "findings:${LIBRARY_BASE}/library-findings"
+    "collections/collection-a/pdfs:${LIBRARY_BASE}/collection-a"
+    "collections/collection-a/indexed:${LIBRARY_BASE}/library-indexed/collection-a"
+)
+```
 
-# iCloud Drive
-ln -s ~/Library/Mobile\ Documents/com~apple~CloudDocs/my-library/library-findings findings
+Then run:
 
-# Google Drive
-ln -s "~/Google Drive/My Drive/my-library/library-findings" findings
+```bash
+./init-symlinks.sh
 ```
 
 ---

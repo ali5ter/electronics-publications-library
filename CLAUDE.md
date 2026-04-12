@@ -55,8 +55,9 @@ electronics-publications-library/
 ├── download.py                   ← scrape and download PDFs from an archive page
 ├── convert.py                    ← convert PDFs → markdown + page PNGs
 ├── search.py                     ← search across indexed collections with formatted output
-├── init-symlinks.sh              ← recreate cloud-storage symlinks (configure via .env)
 ├── init-findings.sh              ← scaffold the findings/ directory
+├── init-symlinks.sh              ← recreate cloud-storage symlinks (auto-derived from collections/)
+├── bootstrap.sh                  ← full reconstruction pipeline from a clean clone
 ├── .env.template                 ← configuration template (copy to .env and set LIBRARY_BASE)
 ├── README.md
 ├── CLAUDE.md                     ← this file
@@ -79,8 +80,14 @@ electronics-publications-library/
 ## Common commands
 
 ```bash
-# Set up cloud-storage symlinks (first time or new machine)
+# Scaffold findings/ directory
+./init-findings.sh
+
+# Full reconstruction from a clean clone (downloads, converts, catalogues)
 cp .env.template .env   # then edit .env and set LIBRARY_BASE
+./bootstrap.sh
+
+# Restore symlinks only (LINKS auto-derived from collections/; override via .env)
 ./init-symlinks.sh
 
 # Search across all indexed collections
@@ -158,6 +165,7 @@ Report bugs and request enhancements via [GitHub Issues](https://github.com/ali5
 
 | Version | Notes |
 | --- | --- |
+| v1.4.9 | Merge upstream v1.6.0: bootstrap.sh reconstruction pipeline; init-symlinks.sh auto-derives LINKS; closes #5, #6 |
 | v1.4.8 | Merge upstream v1.5.0: parametrised init-symlinks.sh (LIBRARY_BASE), pfb submodule, personal paths removed |
 | v1.4.7 | Add Everyday Electronics (332 issues, 24,430 pages); all symlinks in place; add init-symlinks.sh |
 | v1.4.6 | Complete CATALOGUE.md with full page counts; absorbed upstream v1.4.3–v1.4.5 |
