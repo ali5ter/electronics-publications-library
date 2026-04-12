@@ -10,6 +10,9 @@ findings/
 # Downloads in progress
 Downloads/
 
+# Local environment configuration (contains personal paths)
+.env
+
 # Python
 __pycache__/
 *.py[cod]

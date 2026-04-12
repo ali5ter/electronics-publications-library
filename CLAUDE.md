@@ -11,7 +11,6 @@ A personal electronics publications library. Indexed from PDF archives at
 [World Radio History](https://www.worldradiohistory.com).
 
 Template repository: <https://github.com/ali5ter/publication-library>
-Local directory: `/Users/alister/Documents/Projects/electronics-publications-library/`
 
 ## Collections
 
@@ -30,33 +29,39 @@ electronics-publications-library/
 ├── collections/                  ← local PDF archives and indexed output (gitignored)
 │   ├── hobby-electronics/
 │   │   ├── COLLECTION.md         ← tracked collection metadata
-│   │   ├── pdfs/                 ← source PDFs (gitignored; symlinked to Dropbox)
+│   │   ├── pdfs/                 ← source PDFs (gitignored; symlinked to cloud storage)
 │   │   └── indexed/              ← 67 issues, fully indexed (~5,000 pages; gitignored)
 │   ├── eti/
 │   │   ├── COLLECTION.md
-│   │   ├── pdfs/                 ← 326 PDFs (gitignored; symlinked to Dropbox)
+│   │   ├── pdfs/                 ← 326 PDFs (gitignored; symlinked to cloud storage)
 │   │   └── indexed/              ← 326 dirs, 27,328 pages (gitignored)
 │   ├── everyday-electronics/
 │   │   ├── COLLECTION.md
-│   │   ├── pdfs/                 ← 332 PDFs (gitignored; symlinked to Dropbox)
+│   │   ├── pdfs/                 ← 332 PDFs (gitignored; symlinked to cloud storage)
 │   │   └── indexed/              ← 332 dirs, 24,430 pages (gitignored)
 │   ├── bernards-babani/
 │   │   ├── COLLECTION.md
-│   │   ├── pdfs/                 ← 111 BP-numbered books (gitignored; symlinked to Dropbox)
+│   │   ├── pdfs/                 ← 111 BP-numbered books (gitignored; symlinked to cloud storage)
 │   │   └── indexed/              ← 111 dirs, 16,153 pages (gitignored)
 │   └── moritz-klein/
 │       ├── COLLECTION.md
-│       ├── pdfs/                 ← 4 PDFs (gitignored; symlinked to Dropbox)
+│       ├── pdfs/                 ← 4 PDFs (gitignored; symlinked to cloud storage)
 │       └── indexed/              ← 4 dirs, 207 pages (gitignored)
-├── findings/                     ← personal research outputs (gitignored; symlinked to Dropbox)
+├── findings/                     ← personal research outputs (gitignored; symlinked to cloud storage)
+├── lib/
+│   └── pfb/                      ← pretty-feedback terminal output library (submodule)
 ├── LIBRARIAN.md                  ← AI orientation guide (read this first)
 ├── CATALOGUE.md                  ← master cross-collection index (tracked)
 ├── download.py                   ← scrape and download PDFs from an archive page
 ├── convert.py                    ← convert PDFs → markdown + page PNGs
 ├── search.py                     ← search across indexed collections with formatted output
-├── init-symlinks.sh              ← reconstruct all Dropbox symlinks
+├── init-symlinks.sh              ← recreate cloud-storage symlinks (configure via .env)
 ├── init-findings.sh              ← scaffold the findings/ directory
-└── README.md
+├── .env.template                 ← configuration template (copy to .env and set LIBRARY_BASE)
+├── README.md
+├── CLAUDE.md                     ← this file
+├── .gitignore
+└── .markdownlint.json
 ```
 
 ## Quick reference
@@ -74,6 +79,10 @@ electronics-publications-library/
 ## Common commands
 
 ```bash
+# Set up cloud-storage symlinks (first time or new machine)
+cp .env.template .env   # then edit .env and set LIBRARY_BASE
+./init-symlinks.sh
+
 # Search across all indexed collections
 python3 search.py "topic"
 
@@ -87,7 +96,10 @@ python3 convert.py --global-index collections/
 python3 download.py "https://www.worldradiohistory.com/PAGE.htm" \
   --output-dir collections/NAME/pdfs
 
-# Convert a collection
+# Probe a collection before converting
+python3 convert.py --analyze --input-dir collections/NAME/pdfs
+
+# Convert and auto-generate COLLECTION.md
 python3 convert.py --input-dir collections/NAME/pdfs \
   --output-dir collections/NAME/indexed \
   --write-collection-md
@@ -113,6 +125,10 @@ bottom of your local `CLAUDE.md`. Template content lives above this divider; you
 below. When merging upstream changes, conflicts will be isolated to that one section and easy to
 resolve.
 
+> **Warning:** Do not commit personal paths (home directories, usernames, cloud storage roots) into
+> `CLAUDE.md` or any other tracked file. Keep personal paths in `.env` (gitignored) and reference
+> them via environment variables such as `LIBRARY_BASE`.
+
 ```markdown
 ## Instance context
 
@@ -133,15 +149,17 @@ Report bugs and request enhancements via [GitHub Issues](https://github.com/ali5
 
 ### Setup notes
 
-- All PDFs, indexed output, and findings are symlinked to Dropbox; run `init-symlinks.sh` to reconstruct
-- Dropbox base: `/Users/alister/Dropbox/Private/Home/Electronics/Library/`
-- When adding a new collection: create Dropbox directories first, run `init-symlinks.sh`, *then* run `download.py`
+- All PDFs, indexed output, and findings are symlinked to cloud storage via `LIBRARY_BASE`
+- Copy `.env.template` to `.env` and set `LIBRARY_BASE`, then run `init-symlinks.sh`
+- When adding a new collection: create cloud storage directories first, run `init-symlinks.sh`,
+  *then* run `download.py`
 
 ### Release history (this instance)
 
 | Version | Notes |
 | --- | --- |
-| v1.4.7 | Add Everyday Electronics (332 issues, 24,430 pages); all Dropbox symlinks in place; add init-symlinks.sh |
+| v1.4.8 | Merge upstream v1.5.0: parametrised init-symlinks.sh (LIBRARY_BASE), pfb submodule, personal paths removed |
+| v1.4.7 | Add Everyday Electronics (332 issues, 24,430 pages); all symlinks in place; add init-symlinks.sh |
 | v1.4.6 | Complete CATALOGUE.md with full page counts; absorbed upstream v1.4.3–v1.4.5 |
 | v1.4.2 | Document upstream sync workflow |
 | v1.4.1 | Slug collision bugfix |
