@@ -19,6 +19,7 @@ Local directory: `/Users/alister/Documents/Projects/electronics-publications-lib
 | --- | --- | --- | --- | --- |
 | [Hobby Electronics](collections/hobby-electronics/COLLECTION.md) | November 1978 – September 1984 | 67 | ~5,000 | Indexed |
 | [ETI — Electronics Today International](collections/eti/COLLECTION.md) | 1972–1999 | 326 | 27,328 | Indexed |
+| [Everyday Electronics](collections/everyday-electronics/COLLECTION.md) | November 1971 – December 1999 | 332 | 24,430 | Indexed |
 | [Bernards/Babani BP Books](collections/bernards-babani/COLLECTION.md) | Various (1960s–1990s) | 111 | 16,153 | Indexed |
 | [Moritz Klein](collections/moritz-klein/COLLECTION.md) | Ongoing | 4 | 207 | Indexed |
 
@@ -29,26 +30,31 @@ electronics-publications-library/
 ├── collections/                  ← local PDF archives and indexed output (gitignored)
 │   ├── hobby-electronics/
 │   │   ├── COLLECTION.md         ← tracked collection metadata
-│   │   ├── pdfs/                 ← source PDFs (gitignored; to be symlinked to cloud storage)
+│   │   ├── pdfs/                 ← source PDFs (gitignored; symlinked to Dropbox)
 │   │   └── indexed/              ← 67 issues, fully indexed (~5,000 pages; gitignored)
 │   ├── eti/
 │   │   ├── COLLECTION.md
-│   │   ├── pdfs/                 ← 367 PDFs (gitignored; to be symlinked to cloud storage)
-│   │   └── indexed/              ← 327 dirs, 27,328 pages (gitignored)
+│   │   ├── pdfs/                 ← 326 PDFs (gitignored; symlinked to Dropbox)
+│   │   └── indexed/              ← 326 dirs, 27,328 pages (gitignored)
+│   ├── everyday-electronics/
+│   │   ├── COLLECTION.md
+│   │   ├── pdfs/                 ← 332 PDFs (gitignored; symlinked to Dropbox)
+│   │   └── indexed/              ← 332 dirs, 24,430 pages (gitignored)
 │   ├── bernards-babani/
 │   │   ├── COLLECTION.md
-│   │   ├── pdfs/                 ← 111 BP-numbered books (gitignored; to be symlinked)
+│   │   ├── pdfs/                 ← 111 BP-numbered books (gitignored; symlinked to Dropbox)
 │   │   └── indexed/              ← 111 dirs, 16,153 pages (gitignored)
 │   └── moritz-klein/
 │       ├── COLLECTION.md
-│       ├── pdfs/                 ← 4 PDFs (gitignored; to be symlinked)
+│       ├── pdfs/                 ← 4 PDFs (gitignored; symlinked to Dropbox)
 │       └── indexed/              ← 4 dirs, 207 pages (gitignored)
-├── findings/                     ← personal research outputs (gitignored)
+├── findings/                     ← personal research outputs (gitignored; symlinked to Dropbox)
 ├── LIBRARIAN.md                  ← AI orientation guide (read this first)
 ├── CATALOGUE.md                  ← master cross-collection index (tracked)
 ├── download.py                   ← scrape and download PDFs from an archive page
 ├── convert.py                    ← convert PDFs → markdown + page PNGs
 ├── search.py                     ← search across indexed collections with formatted output
+├── init-symlinks.sh              ← reconstruct all Dropbox symlinks
 ├── init-findings.sh              ← scaffold the findings/ directory
 └── README.md
 ```
@@ -127,14 +133,15 @@ Report bugs and request enhancements via [GitHub Issues](https://github.com/ali5
 
 ### Setup notes
 
-- Private remote to be added once cloud storage symlinks are in place
-- PDFs and indexed output are gitignored; to be symlinked to cloud storage
-- `findings/` is gitignored; to be symlinked to cloud storage
+- All PDFs, indexed output, and findings are symlinked to Dropbox; run `init-symlinks.sh` to reconstruct
+- Dropbox base: `/Users/alister/Dropbox/Private/Home/Electronics/Library/`
+- When adding a new collection: create Dropbox directories first, run `init-symlinks.sh`, *then* run `download.py`
 
 ### Release history (this instance)
 
 | Version | Notes |
 | --- | --- |
+| v1.4.7 | Add Everyday Electronics (332 issues, 24,430 pages); all Dropbox symlinks in place; add init-symlinks.sh |
 | v1.4.6 | Complete CATALOGUE.md with full page counts; absorbed upstream v1.4.3–v1.4.5 |
 | v1.4.2 | Document upstream sync workflow |
 | v1.4.1 | Slug collision bugfix |
