@@ -20,6 +20,7 @@ Template repository: <https://github.com/ali5ter/publication-library>
 | [ETI — Electronics Today International](collections/eti/COLLECTION.md) | 1972–1999 | 326 | 27,328 | Indexed |
 | [Everyday Electronics](collections/everyday-electronics/COLLECTION.md) | November 1971 – December 1999 | 332 | 24,430 | Indexed |
 | [Bernards/Babani BP Books](collections/bernards-babani/COLLECTION.md) | Various (1960s–1990s) | 111 | 16,153 | Indexed |
+| [Electronics & Music Maker / Music Technology](collections/electronics-music-maker/COLLECTION.md) | March 1981 – May 1994 | 132 | 12,554 | Indexed |
 | [Moritz Klein](collections/moritz-klein/COLLECTION.md) | Ongoing | 4 | 207 | Indexed |
 
 ## Project layout
@@ -43,6 +44,10 @@ electronics-publications-library/
 │   │   ├── COLLECTION.md
 │   │   ├── pdfs/                 ← 111 BP-numbered books (gitignored; symlinked to cloud storage)
 │   │   └── indexed/              ← 111 dirs, 16,153 pages (gitignored)
+│   ├── electronics-music-maker/
+│   │   ├── COLLECTION.md
+│   │   ├── pdfs/                 ← 132 PDFs (gitignored; symlinked to cloud storage)
+│   │   └── indexed/              ← 132 dirs, 12,554 pages (gitignored)
 │   └── moritz-klein/
 │       ├── COLLECTION.md
 │       ├── pdfs/                 ← 4 PDFs (gitignored; symlinked to cloud storage)
@@ -165,6 +170,7 @@ Report bugs and request enhancements via [GitHub Issues](https://github.com/ali5
 
 | Version | Notes |
 | --- | --- |
+| v1.5.0 | Add Electronics & Music Maker / Music Technology (132 issues, 12,554 pages); closes #3 |
 | v1.4.9 | Merge upstream v1.6.0: bootstrap.sh reconstruction pipeline; init-symlinks.sh auto-derives LINKS; closes #5, #6 |
 | v1.4.8 | Merge upstream v1.5.0: parametrised init-symlinks.sh (LIBRARY_BASE), pfb submodule, personal paths removed |
 | v1.4.7 | Add Everyday Electronics (332 issues, 24,430 pages); all symlinks in place; add init-symlinks.sh |
