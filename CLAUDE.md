@@ -181,6 +181,7 @@ template tags no longer land in this namespace on merge. Stray upstream tags (`v
 
 | Version | Notes |
 | --- | --- |
+| v1.4.12 | Merge upstream #27 (search.py symlink fix) and #28 (--global-index no longer needs --input-dir) |
 | v1.4.11 | Add Elektor 1974–1989 (160 issues, 9,165 pages); fix year-month slug for space-separated filenames; closes #4 |
 | v1.4.10 | Add Electronics & Music Maker / Music Technology (132 issues, 12,554 pages); closes #3 |
 | v1.4.9 | Merge upstream v1.6.0: bootstrap.sh reconstruction pipeline; init-symlinks.sh auto-derives LINKS; closes #5, #6 |
