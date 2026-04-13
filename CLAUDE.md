@@ -181,6 +181,7 @@ template tags no longer land in this namespace on merge. Stray upstream tags (`v
 
 | Version | Notes |
 | --- | --- |
+| v1.4.14 | Merge upstream v1.8.0: .env.template, README.md, bootstrap.sh updated for new cloud layout |
 | v1.4.13 | Restructure cloud storage to mirror repo layout; fixes relative links in findings in Typora; closes #11 |
 | v1.4.12 | Merge upstream #27 (search.py symlink fix) and #28 (--global-index no longer needs --input-dir) |
 | v1.4.11 | Add Elektor 1974–1989 (160 issues, 9,165 pages); fix year-month slug for space-separated filenames; closes #4 |
