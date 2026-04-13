@@ -106,6 +106,43 @@ findings/
 
 Write findings freely — they will never be committed to the repository.
 
+### Linking findings to sources
+
+Link directly to the indexed content or page images using relative paths from `findings/`.
+Both `findings/` and `collections/` sit at the project root, so the relative path is always:
+
+```markdown
+<!-- Link to an issue's full text -->
+[Jan 1980](../collections/eti/indexed/1980-01/content.md)
+
+<!-- Link to a specific page image (NNN = zero-padded page number within the PDF) -->
+[p.65](../collections/eti/indexed/1980-01/pages/page-065.png)
+```
+
+**Finding the right page number:**
+
+The page number in a link (`page-NNN.png`) is the sequential page within the PDF (1-indexed),
+not the publication's own page numbering. They often differ because PDFs include cover pages,
+adverts, and inside covers before the editorial content.
+
+To find the correct `NNN` for an article:
+
+1. Search the issue's `content.md` for a distinctive phrase from the article
+2. Look for the nearest `## Page N` heading above the match — that `N` is the PDF page number
+3. Use that number (zero-padded to three digits) in the link
+
+```bash
+# Example: find which PDF page contains the Formant VCO article
+grep -n "Formant.*VCO\|VCO.*heart" collections/elektor/indexed/1977-10/content.md
+# Then look for the "## Page N" line just above the match
+```
+
+**Conventions:**
+
+- Link to the first page of an article (the page the article header appears on)
+- Use a short descriptive link label: `[Oct 1977, p.40](...)` rather than a bare URL
+- Prefer `content.md` links for issues; prefer page image links for specific articles
+
 ---
 
 ## Important limitations
