@@ -21,6 +21,7 @@ Template repository: <https://github.com/ali5ter/publication-library>
 | [Everyday Electronics](collections/everyday-electronics/COLLECTION.md) | November 1971 – December 1999 | 332 | 24,430 | Indexed |
 | [Bernards/Babani BP Books](collections/bernards-babani/COLLECTION.md) | Various (1960s–1990s) | 111 | 16,153 | Indexed |
 | [Electronics & Music Maker / Music Technology](collections/electronics-music-maker/COLLECTION.md) | March 1981 – May 1994 | 132 | 12,554 | Indexed |
+| [Elektor](collections/elektor/COLLECTION.md) | December 1974 – December 1989 | 160 | 9,165 | Indexed |
 | [Moritz Klein](collections/moritz-klein/COLLECTION.md) | Ongoing | 4 | 207 | Indexed |
 
 ## Project layout
@@ -48,6 +49,10 @@ electronics-publications-library/
 │   │   ├── COLLECTION.md
 │   │   ├── pdfs/                 ← 132 PDFs (gitignored; symlinked to cloud storage)
 │   │   └── indexed/              ← 132 dirs, 12,554 pages (gitignored)
+│   ├── elektor/
+│   │   ├── COLLECTION.md
+│   │   ├── pdfs/                 ← 160 PDFs (gitignored; symlinked to cloud storage)
+│   │   └── indexed/              ← 160 dirs, 9,165 pages (gitignored)
 │   └── moritz-klein/
 │       ├── COLLECTION.md
 │       ├── pdfs/                 ← 4 PDFs (gitignored; symlinked to cloud storage)
@@ -176,6 +181,7 @@ template tags no longer land in this namespace on merge. Stray upstream tags (`v
 
 | Version | Notes |
 | --- | --- |
+| v1.4.11 | Add Elektor 1974–1989 (160 issues, 9,165 pages); fix year-month slug for space-separated filenames; closes #4 |
 | v1.4.10 | Add Electronics & Music Maker / Music Technology (132 issues, 12,554 pages); closes #3 |
 | v1.4.9 | Merge upstream v1.6.0: bootstrap.sh reconstruction pipeline; init-symlinks.sh auto-derives LINKS; closes #5, #6 |
 | v1.4.8 | Merge upstream v1.5.0: parametrised init-symlinks.sh (LIBRARY_BASE), pfb submodule, personal paths removed |
