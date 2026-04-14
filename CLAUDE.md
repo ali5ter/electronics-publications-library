@@ -24,6 +24,7 @@ Template repository: <https://github.com/ali5ter/publication-library>
 | [Elektor](collections/elektor/COLLECTION.md) | December 1974 – December 1989 | 160 | 9,165 | Indexed |
 | [Moritz Klein](collections/moritz-klein/COLLECTION.md) | Ongoing | 4 | 207 | Indexed |
 | [Practical Electronics](collections/practical-electronics/COLLECTION.md) | November 1964 – December 1992 | 341 | 27,145 | Indexed |
+| [Polyphony](collections/polyphony/COLLECTION.md) | June 1975 – April 1985 | 45 | 1,761 | Indexed |
 | [Electronic Musician / Polyphony](collections/electronic-musician/COLLECTION.md) | June 1975 – August 2023 | 443 | 10,389 | Indexed |
 | [Popular Electronics / Poptronics](collections/popular-electronics/COLLECTION.md) | October 1954 – January 2003 | 595 | 69,656 | Indexed |
 
@@ -184,6 +185,7 @@ template tags no longer land in this namespace on merge. Stray upstream tags (`v
 
 | Version | Notes |
 | --- | --- |
+| v1.4.16 | Add Polyphony as standalone collection (45 issues, 1,761 pages) sourced from Electronic Musician pdfs; closes #8 |
 | v1.4.15 | Add Practical Electronics (341 issues), Electronic Musician/Polyphony (443 issues), Popular Electronics/Poptronics (595 issues); fix corrupt-PDF crash in convert.py; fix --global-index to read Date range/Total pages fields; closes #7, #9, #10 |
 | v1.4.14 | Merge upstream v1.8.0: .env.template, README.md, bootstrap.sh updated for new cloud layout |
 | v1.4.13 | Restructure cloud storage to mirror repo layout; fixes relative links in findings in Typora; closes #11 |
