@@ -238,13 +238,21 @@ Then run:
 
 ## Library catalogue
 
-See [`CATALOGUE.md`](CATALOGUE.md) for all collections. Example collections tested with these tools:
+See [`CATALOGUE.md`](CATALOGUE.md) for all collections.
 
 | Collection | Period | PDFs | Pages |
 | --- | --- | --- | --- |
 | [Hobby Electronics](collections/hobby-electronics/COLLECTION.md) | 1978–1984 | 67 | ~5,000 |
-| [ETI — Electronics Today International](collections/eti/COLLECTION.md) | 1972–1999 | 367 | 27,328 |
+| [ETI — Electronics Today International](collections/eti/COLLECTION.md) | 1972–1999 | 326 | 27,328 |
+| [Everyday Electronics](collections/everyday-electronics/COLLECTION.md) | 1971–1999 | 332 | 24,430 |
 | [Bernards/Babani BP Books](collections/bernards-babani/COLLECTION.md) | Various | 111 | 16,153 |
+| [Electronics & Music Maker / Music Technology](collections/electronics-music-maker/COLLECTION.md) | 1981–1994 | 132 | 12,554 |
+| [Elektor](collections/elektor/COLLECTION.md) | 1974–1989 | 160 | 9,165 |
+| [Practical Electronics](collections/practical-electronics/COLLECTION.md) | 1964–1992 | 341 | 27,145 |
+| [Electronic Musician / Polyphony](collections/electronic-musician/COLLECTION.md) | 1975–2023 | 443 | 10,389 |
+| [Polyphony](collections/polyphony/COLLECTION.md) | 1975–1985 | 45 | 1,761 |
+| [Popular Electronics / Poptronics](collections/popular-electronics/COLLECTION.md) | 1954–2003 | 595 | 69,656 |
+| [Moritz Klein](collections/moritz-klein/COLLECTION.md) | Ongoing | 4 | 207 |
 
 ---
 
