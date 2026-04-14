@@ -552,12 +552,10 @@ def write_global_index(collections_root: Path, output_path: Path) -> None:
             m = re.search(r"^# (.+)$", text, re.MULTILINE)
             if m:
                 name = m.group(1)
-            m = re.search(r"\|\s*\*{0,2}Period\*{0,2}\s*\|\s*(.+?)\s*\|", text) or \
-                re.search(r"\|\s*Date range\s*\|\s*(.+?)\s*\|", text)
+            m = re.search(r"\|\s*(?:\*\*Period\*\*|Date range)\s*\|\s*(.+?)\s*\|", text)
             if m:
                 period = m.group(1).strip()
-            m = re.search(r"\|\s*\*{0,2}Pages\*{0,2}\s*\|\s*(~?[\d,]+)\s*\|", text) or \
-                re.search(r"\|\s*Total pages\s*\|\s*(~?[\d,]+)\s*\|", text)
+            m = re.search(r"\|\s*(?:\*\*Pages\*\*|Total pages)\s*\|\s*(~?[\d,]+)\s*\|", text)
             if m:
                 pages = m.group(1).strip()
 
@@ -638,8 +636,8 @@ def main() -> None:
         override = resolved if resolved != base_slug else None
         try:
             info = convert_publication(pdf_path, args.output_dir, args.dpi, args.force, slug_override=override)
-        except Exception as e:
-            print(f"  ERROR: skipping {pdf_path.name} — {e}")
+        except Exception as exc:
+            print(f"  WARNING: skipping {pdf_path.name} — {exc}")
             continue
         if info.get("slug"):
             write_publication_index(info, args.output_dir)
