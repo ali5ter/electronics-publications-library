@@ -186,6 +186,7 @@ template tags no longer land in this namespace on merge. Stray upstream tags (`v
 
 | Version | Notes |
 | --- | --- |
+| v1.4.19 | Update README catalogue to reflect Radio Electronics and Moritz Klein expansion |
 | v1.4.18 | Add Radio Electronics (636 issues, ~74,000 pages, Oct 1948–Dec 1999); closes #12 |
 | v1.4.17 | Expand Moritz Klein collection: 4 → 15 manuals (207 → 903 pages) |
 | v1.4.16 | Add Polyphony as standalone collection (45 issues, 1,761 pages) sourced from Electronic Musician pdfs; closes #8 |

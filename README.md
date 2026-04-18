@@ -252,7 +252,8 @@ See [`CATALOGUE.md`](CATALOGUE.md) for all collections.
 | [Electronic Musician / Polyphony](collections/electronic-musician/COLLECTION.md) | 1975–2023 | 443 | 10,389 |
 | [Polyphony](collections/polyphony/COLLECTION.md) | 1975–1985 | 45 | 1,761 |
 | [Popular Electronics / Poptronics](collections/popular-electronics/COLLECTION.md) | 1954–2003 | 595 | 69,656 |
-| [Moritz Klein](collections/moritz-klein/COLLECTION.md) | Ongoing | 4 | 207 |
+| [Radio Electronics](collections/radio-electronics/COLLECTION.md) | 1948–1999 | 636 | ~74,000 |
+| [Moritz Klein](collections/moritz-klein/COLLECTION.md) | Ongoing | 15 | 903 |
 
 ---
 
