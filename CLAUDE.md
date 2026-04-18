@@ -22,7 +22,7 @@ Template repository: <https://github.com/ali5ter/publication-library>
 | [Bernards/Babani BP Books](collections/bernards-babani/COLLECTION.md) | Various (1960s–1990s) | 111 | 16,153 | Indexed |
 | [Electronics & Music Maker / Music Technology](collections/electronics-music-maker/COLLECTION.md) | March 1981 – May 1994 | 132 | 12,554 | Indexed |
 | [Elektor](collections/elektor/COLLECTION.md) | December 1974 – December 1989 | 160 | 9,165 | Indexed |
-| [Moritz Klein](collections/moritz-klein/COLLECTION.md) | Ongoing | 4 | 207 | Indexed |
+| [Moritz Klein](collections/moritz-klein/COLLECTION.md) | Ongoing | 15 | 903 | Indexed |
 | [Practical Electronics](collections/practical-electronics/COLLECTION.md) | November 1964 – December 1992 | 341 | 27,145 | Indexed |
 | [Polyphony](collections/polyphony/COLLECTION.md) | June 1975 – April 1985 | 45 | 1,761 | Indexed |
 | [Electronic Musician / Polyphony](collections/electronic-musician/COLLECTION.md) | June 1975 – August 2023 | 443 | 10,389 | Indexed |
