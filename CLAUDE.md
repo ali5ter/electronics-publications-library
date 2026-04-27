@@ -63,8 +63,6 @@ electronics-publications-library/
 │       ├── pdfs/                 ← 4 PDFs (gitignored; symlinked to cloud storage)
 │       └── indexed/              ← 4 dirs, 207 pages (gitignored)
 ├── findings/                     ← personal research outputs (gitignored; symlinked to cloud storage)
-├── lib/
-│   └── pfb/                      ← pretty-feedback terminal output library (submodule)
 ├── LIBRARIAN.md                  ← AI orientation guide (read this first)
 ├── CATALOGUE.md                  ← master cross-collection index (tracked)
 ├── download.py                   ← scrape and download PDFs from an archive page
