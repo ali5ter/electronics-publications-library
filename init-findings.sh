@@ -8,7 +8,7 @@
 # Description:  Scaffold findings/ directory for publication-library research
 # Author:       Alister Lewis-Bowen <alister@lewis-bowen.org>
 # Usage:        ./init-findings.sh [--cloud dropbox|icloud|gdrive|local]
-# Dependencies: bash 4+, lib/pfb (submodule)
+# Dependencies: bash 4+
 # Exit codes:   0 success, 1 error
 
 set -euo pipefail
@@ -20,12 +20,17 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 FINDINGS_DIR="${SCRIPT_DIR}/findings"
 CLOUD_TYPE="${1:-}"
 
-if [[ ! -f "${SCRIPT_DIR}/lib/pfb/pfb.sh" ]]; then
-    echo "Initialising lib/pfb submodule..."
-    git submodule update --init lib/pfb
+# Load pfb for terminal output
+PFB_SCRIPT="${SCRIPT_DIR}/lib/pfb/pfb.sh"
+if [[ -f "${PFB_SCRIPT}" ]]; then
+    # shellcheck source=lib/pfb/pfb.sh
+    source "${PFB_SCRIPT}"
+elif command -v pfb &>/dev/null; then
+    : # pfb already on PATH
+else
+    echo "ERROR: pfb not found. Run: git submodule update --init lib/pfb" >&2
+    exit 1
 fi
-
-PFB="${SCRIPT_DIR}/lib/pfb/pfb.sh"
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -93,13 +98,13 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-"${PFB}" heading "publication-library — findings/ setup" "📁"
+pfb heading "publication-library — findings/ setup" "📁"
 echo
 
 # Determine where findings will live
 if [[ -n "${CLOUD}" ]]; then
     CLOUD_DEST="$(cloud_path "${CLOUD}")"
-    "${PFB}" info "Cloud storage: ${CLOUD} → ${CLOUD_DEST}"
+    pfb info "Cloud storage: ${CLOUD} → ${CLOUD_DEST}"
 
     # Create the cloud directory and scaffold inside it
     mkdir -p "${CLOUD_DEST}/topics"
@@ -108,23 +113,23 @@ if [[ -n "${CLOUD}" ]]; then
 
     # Create symlink if findings/ doesn't already exist
     if [[ -e "${FINDINGS_DIR}" ]]; then
-        "${PFB}" info "${FINDINGS_DIR} already exists — skipping symlink"
+        pfb info "${FINDINGS_DIR} already exists — skipping symlink"
     else
         ln -s "${CLOUD_DEST}" "${FINDINGS_DIR}"
-        "${PFB}" success "Symlink created: ${FINDINGS_DIR} → ${CLOUD_DEST}"
+        pfb success "Symlink created: ${FINDINGS_DIR} → ${CLOUD_DEST}"
     fi
 else
     # Local only
     mkdir -p "${FINDINGS_DIR}/topics"
     mkdir -p "${FINDINGS_DIR}/projects"
     mkdir -p "${FINDINGS_DIR}/sessions"
-    "${PFB}" success "Created: ${FINDINGS_DIR}/"
+    pfb success "Created: ${FINDINGS_DIR}/"
 fi
 
 echo
-"${PFB}" subheading "findings/"
-"${PFB}" subheading "  ├── topics/    — topic reference notes (e.g. synthesisers.md)"
-"${PFB}" subheading "  ├── projects/  — project research notes"
-"${PFB}" subheading "  └── sessions/  — dated session logs (YYYY-MM-DD-topic.md)"
+pfb subheading "findings/"
+pfb subheading "  ├── topics/    — topic reference notes (e.g. synthesisers.md)"
+pfb subheading "  ├── projects/  — project research notes"
+pfb subheading "  └── sessions/  — dated session logs (YYYY-MM-DD-topic.md)"
 echo
-"${PFB}" success "Done. findings/ is gitignored and will not be committed."
+pfb success "Done. findings/ is gitignored and will not be committed."
