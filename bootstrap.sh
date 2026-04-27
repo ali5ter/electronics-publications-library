@@ -14,7 +14,7 @@
 # Description:  Full reconstruction pipeline for a publication-library instance
 # Author:       Alister Lewis-Bowen <alister@lewis-bowen.org>
 # Usage:        ./bootstrap.sh
-# Dependencies: bash 4+, python3, pymupdf, git, lib/pfb submodule
+# Dependencies: bash 4+, python3, pymupdf, git, lib/pfb (submodule)
 # Exit codes:   0 success, 1 error
 #
 # Configuration (via .env or environment):
@@ -42,31 +42,29 @@ if [[ ! -f "${SCRIPT_DIR}/lib/pfb/pfb.sh" ]]; then
     git submodule update --init lib/pfb
 fi
 
-# Load pfb for terminal output
-# shellcheck source=lib/pfb/pfb.sh
-source "${SCRIPT_DIR}/lib/pfb/pfb.sh"
+PFB="${SCRIPT_DIR}/lib/pfb/pfb.sh"
 
 # ---------------------------------------------------------------------------
 # Validate required configuration
 # ---------------------------------------------------------------------------
 
-pfb heading "publication-library bootstrap" "📚"
+"${PFB}" heading "publication-library bootstrap" "📚"
 echo
 
 if [[ ! -f "${SCRIPT_DIR}/.env" ]]; then
-    pfb error ".env not found."
-    pfb subheading "Copy .env.template to .env and set LIBRARY_BASE:"
-    pfb subheading "  cp .env.template .env"
+    "${PFB}" error ".env not found."
+    "${PFB}" subheading "Copy .env.template to .env and set LIBRARY_BASE:"
+    "${PFB}" subheading "  cp .env.template .env"
     exit 1
 fi
 
 if [[ -z "${LIBRARY_BASE:-}" ]]; then
-    pfb error "LIBRARY_BASE is not set in .env."
-    pfb subheading "Edit .env and set LIBRARY_BASE to your cloud storage root."
+    "${PFB}" error "LIBRARY_BASE is not set in .env."
+    "${PFB}" subheading "Edit .env and set LIBRARY_BASE to your cloud storage root."
     exit 1
 fi
 
-pfb info "LIBRARY_BASE: ${LIBRARY_BASE}"
+"${PFB}" info "LIBRARY_BASE: ${LIBRARY_BASE}"
 echo
 
 # ---------------------------------------------------------------------------
@@ -87,19 +85,19 @@ parse_source_url() {
 # Phase 1 — Create cloud-storage directories
 # ---------------------------------------------------------------------------
 
-pfb heading "Creating cloud-storage directories" "☁️"
+"${PFB}" heading "Creating cloud-storage directories" "☁️"
 echo
 
 mkdir -p "${LIBRARY_BASE}/findings"
-pfb success "READY  ${LIBRARY_BASE}/findings"
+"${PFB}" success "READY  ${LIBRARY_BASE}/findings"
 
 for col_dir in "${SCRIPT_DIR}/collections"/*/; do
     [[ -d "${col_dir}" ]] || continue
     name="$(basename "${col_dir}")"
     mkdir -p "${LIBRARY_BASE}/collections/${name}/pdfs"
-    pfb success "READY  ${LIBRARY_BASE}/collections/${name}/pdfs"
+    "${PFB}" success "READY  ${LIBRARY_BASE}/collections/${name}/pdfs"
     mkdir -p "${LIBRARY_BASE}/collections/${name}/indexed"
-    pfb success "READY  ${LIBRARY_BASE}/collections/${name}/indexed"
+    "${PFB}" success "READY  ${LIBRARY_BASE}/collections/${name}/indexed"
 done
 
 echo
@@ -108,7 +106,7 @@ echo
 # Phase 2 — Restore symlinks
 # ---------------------------------------------------------------------------
 
-pfb heading "Restoring symlinks" "🔗"
+"${PFB}" heading "Restoring symlinks" "🔗"
 echo
 "${SCRIPT_DIR}/init-symlinks.sh"
 echo
@@ -117,7 +115,7 @@ echo
 # Phase 3 — Download PDFs
 # ---------------------------------------------------------------------------
 
-pfb heading "Downloading PDFs" "⬇️"
+"${PFB}" heading "Downloading PDFs" "⬇️"
 echo
 
 for col_dir in "${SCRIPT_DIR}/collections"/*/; do
@@ -128,21 +126,21 @@ for col_dir in "${SCRIPT_DIR}/collections"/*/; do
     source_url="$(parse_source_url "${col_md}")"
 
     if [[ -z "${source_url}" ]]; then
-        pfb warn "SKIP  ${name} — no Source URL in COLLECTION.md"
+        "${PFB}" warn "SKIP  ${name} — no Source URL in COLLECTION.md"
         continue
     fi
 
     # Count PDFs already present (follow symlinks)
     pdf_count="$(find -L "${col_dir}pdfs" -name "*.pdf" 2>/dev/null | wc -l | tr -d ' ')"
     if [[ "${pdf_count}" -gt 0 ]]; then
-        pfb info "SKIP  ${name} — ${pdf_count} PDFs already present"
+        "${PFB}" info "SKIP  ${name} — ${pdf_count} PDFs already present"
         continue
     fi
 
-    pfb subheading "${name} — downloading from ${source_url}"
+    "${PFB}" subheading "${name} — downloading from ${source_url}"
     python3 "${SCRIPT_DIR}/download.py" "${source_url}" \
         --output-dir "collections/${name}/pdfs"
-    pfb success "DONE  ${name}"
+    "${PFB}" success "DONE  ${name}"
 done
 
 echo
@@ -151,7 +149,7 @@ echo
 # Phase 4 — Convert PDFs to Markdown
 # ---------------------------------------------------------------------------
 
-pfb heading "Converting PDFs to Markdown" "📄"
+"${PFB}" heading "Converting PDFs to Markdown" "📄"
 echo
 
 for col_dir in "${SCRIPT_DIR}/collections"/*/; do
@@ -161,24 +159,24 @@ for col_dir in "${SCRIPT_DIR}/collections"/*/; do
     # Skip if indexed output already exists and is non-empty
     indexed_count="$(find -L "${col_dir}indexed" -name "index.md" 2>/dev/null | wc -l | tr -d ' ')"
     if [[ "${indexed_count}" -gt 0 ]]; then
-        pfb info "SKIP  ${name} — already converted (${indexed_count} index files)"
+        "${PFB}" info "SKIP  ${name} — already converted (${indexed_count} index files)"
         continue
     fi
 
     # Skip if there are no PDFs to convert
     pdf_count="$(find -L "${col_dir}pdfs" -name "*.pdf" 2>/dev/null | wc -l | tr -d ' ')"
     if [[ "${pdf_count}" -eq 0 ]]; then
-        pfb warn "SKIP  ${name} — no PDFs found in collections/${name}/pdfs"
+        "${PFB}" warn "SKIP  ${name} — no PDFs found in collections/${name}/pdfs"
         continue
     fi
 
-    pfb subheading "${name} — converting ${pdf_count} PDFs"
+    "${PFB}" subheading "${name} — converting ${pdf_count} PDFs"
     python3 "${SCRIPT_DIR}/convert.py" \
         --input-dir "collections/${name}/pdfs" \
         --output-dir "collections/${name}/indexed" \
         --pattern "**/*.pdf" \
         --write-collection-md
-    pfb success "DONE  ${name}"
+    "${PFB}" success "DONE  ${name}"
 done
 
 echo
@@ -187,8 +185,8 @@ echo
 # Phase 5 — Regenerate catalogue
 # ---------------------------------------------------------------------------
 
-pfb heading "Regenerating CATALOGUE.md" "🗂️"
+"${PFB}" heading "Regenerating CATALOGUE.md" "🗂️"
 echo
 python3 "${SCRIPT_DIR}/convert.py" --global-index collections/
 echo
-pfb success "Done. Library reconstruction complete."
+"${PFB}" success "Done. Library reconstruction complete."
