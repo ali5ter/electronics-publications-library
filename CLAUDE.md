@@ -184,6 +184,7 @@ template tags no longer land in this namespace on merge. Stray upstream tags (`v
 
 | Version | Notes |
 | --- | --- |
+| v1.4.21 | Merge upstream: remove pfb submodule, require pfb as installed dependency; closes #14 |
 | v1.4.20 | Merge upstream #31: fix docstring style, author attribution, and pfb usage across scripts |
 | v1.4.19 | Update README catalogue to reflect Radio Electronics and Moritz Klein expansion |
 | v1.4.18 | Add Radio Electronics (636 issues, ~74,000 pages, Oct 1948–Dec 1999); closes #12 |
